@@ -1,0 +1,12 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: terrax
+  region: eu-west-1
+
+managedNodeGroups:
+- name: tb-workers
+  instanceType: t2.medium
+  desiredCapacity: 3
