@@ -1,4 +1,14 @@
 ---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: tb-gp2
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: gp2
+  fsType: ext4
+volumeBindingMode: Immediate
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -10,6 +20,7 @@ spec:
   resources:
     requests:
       storage: 25Mi
+  storageClassName: tb-gp2
 ---
 apiVersion: apps/v1
 kind: StatefulSet

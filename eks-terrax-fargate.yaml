@@ -1,0 +1,30 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: terrax-fargate
+  region: eu-west-1
+  version: "1.15"
+
+nodeGroups:
+  - name: node-group
+    instanceType: t2.medium
+    desiredCapacity: 1
+
+fargateProfiles:
+  - name: fp-default
+    selectors:
+      # All workloads in the "default" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: default
+      # All workloads in the "kube-system" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: kube-system
+  - name: fp-demo-service
+    selectors:
+      # All workloads in the "tb-demo" Kubernetes namespace will be
+      # scheduled onto Fargate:
+      - namespace: tb-demo
+        labels:
+          app: service
